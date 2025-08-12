@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Anniversaire - Style Néon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: #0a0a0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Grille animée en arrière-plan */
+        .cyber-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Orbes lumineux flottants */
+        .floating-orbs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: floatOrb 8s infinite ease-in-out;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px);
+                opacity: 0.6;
+            }
+            33% { 
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0.8;
+            }
+            66% { 
+                transform: translateY(50px) translateX(-30px);
+                opacity: 0.4;
+            }
+        }
+
+        /* Carte principale */
+        .birthday-card {
+            width: 420px;
+            height: 580px;
+            background: linear-gradient(135deg, rgba(13, 13, 35, 0.9) 0%, rgba(25, 25, 60, 0.9) 100%);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 50px rgba(0, 255, 255, 0.3),
+                inset 0 0 50px rgba(255, 0, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .birthday-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 
+                0 20px 80px rgba(0, 255, 255, 0.4),
+                inset 0 0 50px rgba(255, 0, 255, 0.2);
+        }
+
+        /* Bordure néon animée */
+        .birthday-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #00ffff);
+            background-size: 400% 400%;
+            border-radius: 22px;
+            z-index: -1;
+            animation: neonBorder 3s ease infinite;
+        }
+
+        @keyframes neonBorder {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* En-tête avec effet de vagues */
+        .card-header {
+            height: 120px;
+            background: linear-gradient(45deg, 
+                rgba(0, 255, 255, 0.2) 0%, 
+                rgba(255, 0, 255, 0.2) 50%, 
+                rgba(255, 255, 0, 0.2) 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 255, 255, 0.3), 
+                transparent);
+            animation: waveMove 3s linear infinite;
+        }
+
+        @keyframes waveMove {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Contenu principal */
+        .card-content {
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .main-title {
+            font-size: 3em;
+            font-weight: 900;
+            color: transparent;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.5),
+                0 0 40px rgba(255, 0, 255, 0.3);
+            margin-bottom: 10px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        @keyframes titleGlow {
+            0% { 
+                filter: brightness(1);
+                transform: scale(1);
+            }
+            100% { 
+                filter: brightness(1.2);
+                transform: scale(1.05);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.4em;
+            color: #00ffff;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            animation: fadeInNeon 1s ease-out 0.5s both;
+            font-weight: 700;
+        }
+
+        @keyframes fadeInNeon {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                text-shadow: none;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            }
+        }
+
+        /* Élément central futuriste */
+        .cyber-cake {
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cyber-circle {
+            width: 100%;
+            height: 100%;
+            border: 3px solid #00ffff;
+            border-radius: 50%;
+            position: absolute;
+            animation: rotate 4s linear infinite;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.5),
+                inset 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .cyber-circle:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            border-color: #ff00ff;
+            animation-direction: reverse;
+            animation-duration: 3s;
+            box-shadow: 
+                0 0 20px rgba(255, 0, 255, 0.5),
+                inset 0 0 20px rgba(255, 0, 255, 0.2);
+        }
+
+        .cyber-circle:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            border-color: #ffff00;
+            animation-duration: 2s;
+            box-shadow: 
+                0 0 20px rgba(255, 255, 0, 0.5),
+                inset 0 0 20px rgba(255, 255, 0, 0.2);
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cake-emoji {
+            font-size: 4em;
+            z-index: 5;
+            animation: pulseGlow 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { 
+                transform: scale(1);
+                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+            }
+            50% { 
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1));
+            }
+        }
+
+        /* Bouton futuriste */
+        .cyber-button {
+            background: transparent;
+            border: 2px solid #00ffff;
+            padding: 15px 40px;
+            color: #00ffff;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.3),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .cyber-button:hover {
+            color: #0a0a0f;
+            background: #00ffff;
+            box-shadow: 
+                0 0 30px rgba(0, 255, 255, 0.6),
+                inset 0 0 30px rgba(0, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cyber-button:hover::before {
+            left: 100%;
+        }
+
+        /* Message final */
+        .cyber-message {
+            color: #ff00ff;
+            font-size: 1em;
+            margin-top: 25px;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+            animation: fadeInNeon 1s ease-out 1.5s both;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* Effets de célébration */
+        .celebration-effects {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .laser-beam {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                #00ffff 50%, 
+                transparent 100%);
+            animation: laserSweep 1.5s ease-out;
+            opacity: 0;
+        }
+
+        @keyframes laserSweep {
+            0% { 
+                opacity: 1; 
+                left: 0; 
+                transform: scaleY(0);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scaleY(1);
+            }
+            100% { 
+                opacity: 0; 
+                left: 100%; 
+                transform: scaleY(0);
+            }
+        }
+
+        /* Animation d'explosion */
+        .explosion-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            border: 2px solid #ffff00;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: explode 1s ease-out;
+            opacity: 0;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            70% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(20);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .birthday-card {
+                width: 90vw;
+                height: 70vh;
+                margin: 20px;
+            }
+            
+            .main-title {
+                font-size: 2.2em;
+            }
+            
+            .cyber-cake {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .cake-emoji {
+                font-size: 3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Grille cyber en arrière-plan -->
+    <div class="cyber-grid"></div>
+    
+    <!-- Orbes flottants -->
+    <div class="floating-orbs" id="orbs"></div>
+    
+    <!-- Étoiles scintillantes -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Carte d'anniversaire -->
+    <div class="birthday-card" id="cyberCard">
+        <div class="card-header">
+            <div class="wave"></div>
+        </div>
+
+        <div class="card-content">
+            <h1 class="main-title">Joyeux</h1>
+            <h2 class="subtitle">Anniversaire</h2>
+            
+            <div class="cyber-cake">
+                <div class="cyber-circle"></div>
+                <div class="cyber-circle"></div>
+                <div class="cyber-circle"></div>
+                <div class="cake-emoji">🎂</div>
+            </div>
+            
+            <button class="cyber-button" onclick="launchCelebration()">
+                🚀 Activer Mode Fête 🚀
+            </button>
+            
+            <p class="cyber-message">
+                Que cette nouvelle année soit remplie<br>
+                d'aventures extraordinaires !
+            </p>
+        </div>
+
+        <div class="celebration-effects" id="effects"></div>
+    </div>
+
+    <script>
+        // Création des étoiles scintillantes
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numStars = 100;
+
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Création des orbes flottants
+        function createOrbs() {
+            const orbsContainer = document.getElementById('orbs');
+            const colors = [
+                'radial-gradient(circle, rgba(0,255,255,0.8) 0%, transparent 70%)',
+                'radial-gradient(circle, rgba(255,0,255,0.8) 0%, transparent 70%)',
+                'radial-gradient(circle, rgba(255,255,0,0.8) 0%, transparent 70%)'
+            ];
+
+            for (let i = 0; i < 6; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'orb';
+                
+                const size = Math.random() * 80 + 40;
+                orb.style.width = size + 'px';
+                orb.style.height = size + 'px';
+                orb.style.left = Math.random() * 100 + '%';
+                orb.style.top = Math.random() * 100 + '%';
+                orb.style.background = colors[Math.floor(Math.random() * colors.length)];
+                orb.style.animationDelay = Math.random() * 8 + 's';
+                orb.style.animationDuration = (Math.random() * 4 + 8) + 's';
+                
+                orbsContainer.appendChild(orb);
+            }
+        }
+
+        // Lancement de la célébration
+        function launchCelebration() {
+            const card = document.getElementById('cyberCard');
+            const effectsContainer = document.getElementById('effects');
+            
+            // Effet de pulsation de la carte
+            card.style.animation = 'none';
+            setTimeout(() => {
+                card.style.animation = '';
+            }, 10);
+            
+            // Création des faisceaux laser
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const laser = document.createElement('div');
+                    laser.className = 'laser-beam';
+                    laser.style.left = Math.random() * 100 + '%';
+                    laser.style.animationDelay = Math.random() * 0.3 + 's';
+                    effectsContainer.appendChild(laser);
+                    
+                    setTimeout(() => {
+                        if (laser.parentNode) {
+                            laser.parentNode.removeChild(laser);
+                        }
+                    }, 2000);
+                }, i * 100);
+            }
+            
+            // Créer des anneaux d'explosion
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const ring = document.createElement('div');
+                    ring.className = 'explosion-ring';
+                    ring.style.top = Math.random() * 100 + '%';
+                    ring.style.left = Math.random() * 100 + '%';
+                    effectsContainer.appendChild(ring);
+                    
+                    setTimeout(() => {
+                        if (ring.parentNode) {
+                            ring.parentNode.removeChild(ring);
+                        }
+                    }, 1000);
+                }, i * 200);
+            }
+            
+            // Effet sonore cyber
+            playCyberSound();
+        }
+
+        // Son futuriste
+        function playCyberSound() {
+            if (window.AudioContext || window.webkitAudioContext) {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Série de bips futuristes
+                const frequencies = [800, 1000, 1200, 900, 1100];
+                
+                frequencies.forEach((freq, index) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(freq, audioContext.currentTime + index * 0.1);
+                    oscillator.type = 'square';
+                    
+                    gainNode.gain.setValueAtTime(0, audioContext.currentTime + index * 0.1);
+                    gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + index * 0.1 + 0.01);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + index * 0.1 + 0.15);
+                    
+                    oscillator.start(audioContext.currentTime + index * 0.1);
+                    oscillator.stop(audioContext.currentTime + index * 0.1 + 0.15);
+                });
+            }
+        }
+
+        // Effet de survol avancé
+        document.getElementById('cyberCard').addEventListener('mouseenter', function() {
+            this.style.boxShadow = `
+                0 30px 100px rgba(0, 255, 255, 0.6),
+                inset 0 0 80px rgba(255, 0, 255, 0.3)`;
+        });
+
+        document.getElementById('cyberCard').addEventListener('mouseleave', function() {
+            this.style.boxShadow = `
+                0 0 50px rgba(0, 255, 255, 0.3),
+                inset 0 0 50px rgba(255, 0, 255, 0.1)`;
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            createOrbs();
+            
+            // Animation d'entrée de la carte
+            const card = document.getElementById('cyberCard');
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px) scale(0.8)';
+            
+            setTimeout(() => {
+                card.style.transition = 'all 1s ease-out';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0) scale(1)';
+            }, 100);
+        });
+
+        // Animation automatique périodique
+        setInterval(() => {
+            const card = document.getElementById('cyberCard');
+            if (!card.matches(':hover')) {
+                card.style.transform = 'translateY(-5px) scale(1.01)';
+                setTimeout(() => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, 200);
+            }
+        }, 8000);
+    </script>
+</body>
+</html>
